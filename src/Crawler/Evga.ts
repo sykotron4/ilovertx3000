@@ -5,24 +5,7 @@ import {Logger} from '../Logger';
 import axios from 'axios';
 
 export class Evga implements CrawlerInterface {
-  private products: Product[] = [
-    {
-      name: 'EVGA GeForce RTX 3080 FTW3 ULTRA GAMING',
-      url: 'https://www.evga.com/products/product.aspx?pn=10G-P5-3897-KR'
-    },
-    {
-      name: 'EVGA GeForce RTX 3080 XC3 BLACK GAMING',
-      url: 'https://www.evga.com/products/product.aspx?pn=10G-P5-3881-KR'
-    },
-    {
-      name: 'EVGA GeForce RTX 3080 XC3 GAMING',
-      url: 'https://www.evga.com/products/product.aspx?pn=10G-P5-3883-KR'
-    },
-    {
-      name: 'EVGA GeForce RTX 3080 XC3 ULTRA GAMING',
-      url: 'https://www.evga.com/products/product.aspx?pn=10G-P5-3885-KR'
-    },
-  ];
+  private readonly url = 'https://www.evga.com/products/ProductList.aspx?type=10&family=Power+Supplies&chipset=1600+Watts';
 
   getRetailerName(): string {
     return 'EVGA Shop';
@@ -30,20 +13,22 @@ export class Evga implements CrawlerInterface {
 
   async acquireStock(logger: Logger) {
     const products: Product[] = [];
-    for await (const product of this.products) {
-      try {
-        const response = await axios.get(product.url);
-        if (response.status !== 200) {
-          continue;
+    try {
+      const response = await axios.get(this.url);
+      const $ = cheerio.load(response.data);
+      $('.list-item').each((i, element) => {
+        const name = $(element).find('.pl-list-pname').text().trim();
+        const url  = $(element).find('a').first().attr('href');
+        const stock = $(element).find('.btnBigAddCart').length ? 'available' : 'Out of Stock';
+        const product: Product = {
+          name,
+          url: `https://www.evga.com${url}`,
+          stock
         }
-        const $          = cheerio.load(response.data);
-        product.retailer = this.getRetailerName();
-        product.stock    = $('.message-information').first().text().trim();
-        logger.debug(`Acquired stock from ${this.getRetailerName()}`, product);
         products.push(product);
-      } catch (e) {
-        logger.error(e.message, { url: product.url });
-      }
+      });
+    } catch (e) {
+      logger.error(e.message, { url: this.url });
     }
     return products;
   }
