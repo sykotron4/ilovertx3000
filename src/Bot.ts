@@ -44,7 +44,9 @@ export class Bot {
 
   private handleStockChange(product: Product, previous: Product) {
     this.notifications.forEach(notification => {
-      notification.notify(`${product.retailer}: Stock changed from "${previous.stock}" to "${product.stock}". ${product.url}`, this.logger);
+      const prev    = previous.stock?.trim();
+      const current = product.stock?.trim();
+      notification.notify(`${product.retailer}: Stock changed from "${prev !== '' ? prev : 'unknown'}" to "${current !== '' ? current : 'unknown'}". ${product.url}`, this.logger);
     });
   }
 
