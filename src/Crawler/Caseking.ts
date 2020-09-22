@@ -32,6 +32,7 @@ export class Caseking implements CrawlerInterface {
             url,
             stock
           });
+          logger.debug(`Acquired stock from ${this.getRetailerName()}`, products[products.length - 1]);
         });
       } catch (e) {
         logger.error(e.message, {url});
