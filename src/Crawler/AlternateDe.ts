@@ -31,6 +31,7 @@ export class AlternateDe implements CrawlerInterface {
             stock,
             url: `https://www.alternate.de${url}`
           });
+          logger.debug(`Acquired stock from ${this.getRetailerName()}`, products[products.length - 1]);
         });
       } catch (e) {
         logger.error(e.message, { url });
