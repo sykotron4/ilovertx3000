@@ -4,28 +4,29 @@ import axios from 'axios';
 import {Product} from '../Model/Product';
 import {Logger} from '../Logger';
 
-export class AmazonDe implements CrawlerInterface {
+export class AmazonCom implements CrawlerInterface {
   private readonly urls = [
-    'https://amzn.to/3mFTSMR',
-    'https://amzn.to/3hNUGf2',
-    'https://amzn.to/32SP3bl',
-    'https://amzn.to/2ZYLyOI',
-    'https://amzn.to/3ckCc4A',
-    'https://amzn.to/3ctHefq',
-    'https://amzn.to/3644xeF',
-    'https://amzn.to/3kHrAzE',
-    'https://amzn.to/3mI4UBl',
-    'https://amzn.to/35XGgGN',
-    'https://amzn.to/35Yfbn6',
-    'https://amzn.to/32QmUla',
-    'https://amzn.to/2FWjWCK',
+    'https://amzn.to/3iSqIrK',
+    'https://amzn.to/32PmV8W',
+    'https://amzn.to/3mFsU8a',
+    'https://amzn.to/2RVxlNP',
+    'https://amzn.to/3mLMn75',
+    'https://amzn.to/3hT288N',
+    'https://amzn.to/3mGxQJX',
+    'https://amzn.to/3kFZ1CY',
+    'https://amzn.to/2ROJgx1',
+    'https://amzn.to/2HrvSgB',
+    'https://amzn.to/3ckC3ON',
+    'https://amzn.to/32QiAlM',
+    'https://amzn.to/2He0YYH',
+    'https://amzn.to/33UDAqO',
     // Playstation 5
-    'https://amzn.to/345FxkD',
-    'https://amzn.to/3mLhEHx'
+    'https://amzn.to/2ZXt3dk',
+    'https://amzn.to/3kBhBMv'
   ];
 
   getRetailerName(): string {
-    return 'amazon.de';
+    return 'amazon.com';
   }
 
   async acquireStock(logger: Logger) {
