@@ -19,6 +19,8 @@ export class AmazonDe implements CrawlerInterface {
     'https://amzn.to/35Yfbn6',
     'https://amzn.to/32QmUla',
     'https://amzn.to/2FWjWCK',
+    // Playstation 5
+    'https://amzn.to/3mLwuNW'
   ];
 
   getRetailerName(): string {
