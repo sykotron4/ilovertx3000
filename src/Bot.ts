@@ -44,13 +44,18 @@ export class Bot {
 
   private handleStockChange(product: Product, previous: Product) {
     this.notifications.forEach(notification => {
-      const prev    = previous.stock?.trim();
-      const current = product.stock?.trim();
-      notification.notify(`${product.retailer}: Stock changed from "${prev !== '' ? prev : 'unknown'}" to "${current !== '' ? current : 'unknown'}". ${product.url}`, this.logger);
-    });
-  }
+      const prev      = previous.stock?.trim();
+      const current   = product.stock?.trim();
+      const affiliate = product.affiliate ? ' [A]' : '';
+      notification.notify(
+        `${product.retailer}: Stock changed from "${prev !== '' ? prev : 'unknown'}" to "${current !== '' ? current : 'unknown'}". ${product.url}${affiliate}`,
+        this.logger
+      );
+    }
+  );
+    }
 
-  private async sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    private async sleep(ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
   }
-}
