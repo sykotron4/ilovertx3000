@@ -20,12 +20,15 @@ export class Evga implements CrawlerInterface {
         const name = $(element).find('.pl-list-pname').text().trim();
         const url  = $(element).find('a').first().attr('href');
         const stock = $(element).find('.btnBigAddCart').length ? 'available' : 'Out of Stock';
-        const product: Product = {
+        if (name === '' || !url) {
+          return;
+        }
+        products.push({
           name,
           url: `https://www.evga.com${url}`,
           stock
-        }
-        products.push(product);
+        });
+        logger.debug(`Acquired stock from ${this.getRetailerName()}`, products[products.length - 1]);
       });
     } catch (e) {
       logger.error(e.message, { url: this.url });
