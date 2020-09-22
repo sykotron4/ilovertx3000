@@ -5,7 +5,7 @@ import {Logger} from '../Logger';
 import axios from 'axios';
 
 export class Evga implements CrawlerInterface {
-  private readonly url = 'https://www.evga.com/products/ProductList.aspx?type=10&family=Power+Supplies&chipset=1600+Watts';
+  private readonly url = 'https://www.evga.com/products/productlist.aspx?type=0&family=GeForce+30+Series+Family&chipset=RTX+3080';
 
   getRetailerName(): string {
     return 'EVGA Shop';
