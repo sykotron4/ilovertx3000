@@ -22,6 +22,7 @@ export class NvidiaUs implements CrawlerInterface {
       try {
         const response = await axios.get(product.url);
         if (response.status !== 200) {
+          logger.info(`Uh, stuff`, response);
           continue;
         }
         const $          = cheerio.load(response.data);
@@ -30,7 +31,7 @@ export class NvidiaUs implements CrawlerInterface {
         logger.debug(`Acquired stock from ${this.getRetailerName()}`, product);
         products.push(product);
       } catch (e) {
-        logger.error(e.message, { url: product.url });
+        logger.error(`${this.getRetailerName()}: ` + e.message, { url: product.url });
       }
     }
     return products;

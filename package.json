@@ -13,10 +13,12 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/cheerio": "^0.22.21",
+    "@types/node-fetch": "^2.5.7",
     "@types/twitter": "^1.7.0",
     "axios": "^0.20.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
     "ts-node": "^9.0.0",
     "twitter": "^1.7.1",
     "typescript": "^4.0.3"

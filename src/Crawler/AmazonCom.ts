@@ -4,6 +4,11 @@ import axios from 'axios';
 import {Product} from '../Model/Product';
 import {Logger} from '../Logger';
 
+// interface UrlFailerCounter {
+//   url: string;
+//   count: number;
+// }
+
 export class AmazonCom implements CrawlerInterface {
   private readonly urls = [
     'https://amzn.to/3iSqIrK',
@@ -19,17 +24,17 @@ export class AmazonCom implements CrawlerInterface {
     'https://amzn.to/3ckC3ON',
     'https://amzn.to/32QiAlM',
     'https://amzn.to/2He0YYH',
-    'https://amzn.to/33UDAqO',
-    // Playstation 5
-    'https://amzn.to/2ZXt3dk',
-    'https://amzn.to/3kBhBMv'
+    'https://amzn.to/33UDAqO'
   ];
+
+  // private urlFailers: UrlFailerCounter[] = [];
 
   getRetailerName(): string {
     return 'amazon.com';
   }
 
   async acquireStock(logger: Logger) {
+    logger.debug(`acquireStock`);
     const products: Product[] = [];
     for await (const url of this.urls) {
       try {
@@ -52,7 +57,7 @@ export class AmazonCom implements CrawlerInterface {
         });
         logger.debug(`Acquired stock from ${this.getRetailerName()}`, products[products.length - 1]);
       } catch (e) {
-        logger.error(e.message, {url});
+        logger.error(`${this.getRetailerName()}: ` + e.message, {url});
       }
     }
     return products;

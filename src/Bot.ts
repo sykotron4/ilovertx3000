@@ -8,23 +8,29 @@ export class Bot {
 
   constructor(
     private readonly delay: number,
-    private readonly crawler: CrawlerInterface[],
+    private readonly crawlers: CrawlerInterface[],
     private readonly notifications: NotificationInterface[],
     private readonly logger: Logger
   ) {
+    console.log();
+    console.log();
+    console.log();
+    console.log();
+    console.log();
+    console.log();
   }
 
   async start() {
-    this.logger.info(`Starting ilovertx3000 with ${this.crawler.length} crawler: ${this.crawler.map(c => c.constructor.name).join(', ')}`);
+    this.logger.info(`Starting ilovertx3000 with ${this.crawlers.length} crawlers: ${this.crawlers.map(c => c.constructor.name).join(', ')}`);
 
-    if (this.crawler.length === 0) {
+    if (this.crawlers.length === 0) {
       this.logger.info('Nothing to do here...');
       return;
     }
 
     // noinspection InfiniteLoopJS
     while (true) {
-      for await (const crawler of this.crawler) {
+      for await (const crawler of this.crawlers) {
         const stock = await crawler.acquireStock(this.logger);
         stock.forEach(product => {
           const existing = this.stock.find(p => p.retailer === product.retailer && p.name === product.name);

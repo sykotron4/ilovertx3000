@@ -12,6 +12,7 @@ export enum LogLevel {
 
 export class Logger {
   constructor(private level: LogLevel) {
+    console.log('log level: ', level);
   }
 
   alert(message: string, context?: object) {
